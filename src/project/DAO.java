@@ -26,7 +26,7 @@ public class DAO {
 	public boolean insertTalker(String nickname) {
 				
 		String sql = "INSERT INTO userList VALUES (?, to_date(?))";
-		
+		 
 		try {
 			ps = con.prepareStatement(sql);
 			

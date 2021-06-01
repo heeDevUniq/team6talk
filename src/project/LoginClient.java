@@ -70,7 +70,7 @@ public class LoginClient extends JFrame {
 		
 		DAO dao = new DAO();
 		
-		setTitle("6Á¶TALK");
+		setTitle("6ï¿½ï¿½TALK");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 600);
 		contentPane = new JPanel();
@@ -105,9 +105,9 @@ public class LoginClient extends JFrame {
 		btnEnter.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				try {                       // ipÁÖ¼Ò         //Æ÷Æ®¹øÈ£
+				try {                       // ipì£¼ì†Œ         //í¬íŠ¸ë²ˆí˜¸
 					Socket s1 = new Socket(txtIp.getText(),Integer.parseInt(txtPort.getText()));
-					System.out.println("¼­¹ö¿¡ ¿¬°á.....");//connect 
+					System.out.println("ì„œë²„ì— ì—°ê²°.....");//connect 
 
 					DataOutputStream outputStream = new DataOutputStream(s1.getOutputStream());
 					DataInputStream inputStream = new DataInputStream(s1.getInputStream());
@@ -124,10 +124,10 @@ public class LoginClient extends JFrame {
 						}
 					};
 					
-					// DB¿¡ Á¢¼ÓÀÚ ÀúÀå
+					// DBì— ì ‘ì†ì ì €ì¥
 					boolean savingUser = dao.insertTalker(txtNick.getText());
-					if(savingUser) System.out.println("DBÀúÀå ¼º°ø!");
-					else JOptionPane.showMessageDialog(null, "DBÀúÀå ½ÇÆĞ!");
+					if(savingUser) System.out.println("DBì €ì¥ ì„±ê³µ!");
+					else JOptionPane.showMessageDialog(null, "DBì €ì¥ ì‹¤íŒ¨!");
 					
 				} catch (Exception ee) { 
 					//	ee.printStackTrace();
@@ -136,7 +136,7 @@ public class LoginClient extends JFrame {
 		});
 		btnEnter.setForeground(new Color(0, 0, 0));
 		btnEnter.setBackground(new Color(255, 255, 255));
-		btnEnter.setFont(new Font("¸¼Àº°íµñ", Font.BOLD, 20));
+		btnEnter.setFont(new Font("ë§‘ì€ê³ ë”•", Font.BOLD, 20));
 		btnEnter.setBounds(132, 448, 176, 42);
 		contentPane.add(btnEnter);
 

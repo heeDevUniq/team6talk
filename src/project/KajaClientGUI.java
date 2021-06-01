@@ -21,10 +21,10 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-// Client console to client GUID				// Runnable = ½º·¹µå Å¬·¡½º ±¸Çö
+// Client console to client GUID				// Runnable = ìŠ¤ë ˆë“œ í´ë˜ìŠ¤ êµ¬í˜„
 public class KajaClientGUI extends JFrame implements Runnable, ActionListener {
 
-	// console¸ğµå¿¡¼­ ³Ñ¾î¿À´Â 3°³ ÀÎÀÚ¸¦ ¹Ş¾Æ ÀúÀåÇÒ ÇÊµå
+	// consoleëª¨ë“œì—ì„œ ë„˜ì–´ì˜¤ëŠ” 3ê°œ ì¸ìë¥¼ ë°›ì•„ ì €ì¥í•  í•„ë“œ
 	DataOutputStream outputStream;
 	DataInputStream inputStream;
 	String nickname;
@@ -32,7 +32,7 @@ public class KajaClientGUI extends JFrame implements Runnable, ActionListener {
 	int port;
 	Vector userList;
 
-	// ±×·¡ÇÈ µğÀÚÀÎ ÄÄÆ÷³ÍÆ®
+	// ê·¸ë˜í”½ ë””ìì¸ ì»´í¬ë„ŒíŠ¸
 	JPanel contentPane;
 	JTextField textField;
 	JList list;
@@ -41,15 +41,15 @@ public class KajaClientGUI extends JFrame implements Runnable, ActionListener {
 	JTextArea textArea;
 
 	public KajaClientGUI(DataOutputStream outputStream, 
-			DataInputStream inputStream, String nickname, String ip, int port, Vector userList) {	// »ı¼ºÀÚ
-		this.outputStream = outputStream;	// ÇÊµå(¼Ó¼º) ÃÊ±âÈ­
+			DataInputStream inputStream, String nickname, String ip, int port, Vector userList) {	// ìƒì„±ì
+		this.outputStream = outputStream;	// í•„ë“œ(ì†ì„±) ì´ˆê¸°í™”
 		this.inputStream = inputStream;
 		this.nickname = nickname;
 		this.ip = ip;
 		this.port = port;
 		this.userList = userList;
 		
-		setTitle("6Á¶TALK");
+		setTitle("6ì¡°TALK");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 600);
 		contentPane = new JPanel();
@@ -59,31 +59,31 @@ public class KajaClientGUI extends JFrame implements Runnable, ActionListener {
 		contentPane.setLayout(null);
 		setVisible(true);
 		
-		// ÇöÀç Á¢¼ÓÀÚ
+		// í˜„ì¬ ì ‘ì†ì
 		lblNowUser = new JLabel();
-		lblNowUser.setFont(new Font("¸¼Àº°íµñ", Font.BOLD, 16));
-		lblNowUser.setText("Çö Àç Á¢ ¼Ó ÀÚ");
+		lblNowUser.setFont(new Font("ë§‘ì€ê³ ë”•", Font.BOLD, 16));
+		lblNowUser.setText("í˜„ ì¬ ì ‘ ì† ì");
 		lblNowUser.setBounds(163, 0, 137, 30);
 		contentPane.add(lblNowUser);
 		
-		// Á¢¼ÓÀÚ°¡ Ãâ·ÂµÇ´Â °÷
+		// ì ‘ì†ìê°€ ì¶œë ¥ë˜ëŠ” ê³³
 		list = new JList();
 		list.setBackground(Color.WHITE);
 		list.setForeground(Color.BLACK);
-		list.setFont(new Font("¸¼Àº°íµñ", Font.BOLD, 14));
+		list.setFont(new Font("ë§‘ì€ê³ ë”•", Font.BOLD, 14));
 		list.setBounds(0, 30, 434, 96);
 		contentPane.add(list);
 		
-		// chat ÀÔ·Â
+		// chat ì…ë ¥
 		textField = new JTextField();
 		textField.setBackground(Color.WHITE);
 		textField.setForeground(Color.BLACK);
-		textField.setFont(new Font("¸¼Àº°íµñ", Font.BOLD, 14));
+		textField.setFont(new Font("ë§‘ì€ê³ ë”•", Font.BOLD, 14));
 		textField.setBounds(0, 516, 434, 45);
 		textField.addActionListener(this);
 		contentPane.add(textField);
 		
-		// chat ¹®ÀÚ¿­ÀÌ Ãâ·ÂµÇ´Â °÷
+		// chat ë¬¸ìì—´ì´ ì¶œë ¥ë˜ëŠ” ê³³
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 124, 434, 394);
 		contentPane.add(scrollPane);
@@ -92,24 +92,24 @@ public class KajaClientGUI extends JFrame implements Runnable, ActionListener {
 		scrollPane.setViewportView(textArea);
 		textArea.setBackground(new Color(224,230,243));
 		textArea.setForeground(Color.BLACK);
-		textArea.setFont(new Font("¸¼Àº°íµñ", Font.PLAIN, 14));
+		textArea.setFont(new Font("ë§‘ì€ê³ ë”•", Font.PLAIN, 14));
 		textArea.setEditable(false);
 		
 		
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				dispose();
-				System.exit(0);	// ÀÌ°É ½áÁà¾ß "~ÅğÀåÇÏ¼Ì½À´Ï´Ù." ¸Ş½ÃÁö°¡ ³ª¿Â´Ù.
-				// ´Ü, 1¸í Á¢¼ÓÀÏ ¶§´Â ³ª¿ÀÁö ¾Ê°í 2¸í ÀÌ»óÀÏ ¶§¸¸ Ãâ·Â
+				System.exit(0);	// ì´ê±¸ ì¨ì¤˜ì•¼ "~í‡´ì¥í•˜ì…¨ìŠµë‹ˆë‹¤." ë©”ì‹œì§€ê°€ ë‚˜ì˜¨ë‹¤.
+				// ë‹¨, 1ëª… ì ‘ì†ì¼ ë•ŒëŠ” ë‚˜ì˜¤ì§€ ì•Šê³  2ëª… ì´ìƒì¼ ë•Œë§Œ ì¶œë ¥
 				setVisible(false);
 			}
 		});
 
-		// ¼­¹ö·ÎºÎÅÍ ¹Ş¾Æ¼­ TextArea¿¡ »Ñ·ÁÁÖ´Â ½º·¹µå
+		// ì„œë²„ë¡œë¶€í„° ë°›ì•„ì„œ TextAreaì— ë¿Œë ¤ì£¼ëŠ” ìŠ¤ë ˆë“œ
 		Thread th = new Thread(this);
 		th.start();
 
-	}// »ı¼ºÀÚ-end
+	}// ìƒì„±ì-end
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -119,35 +119,35 @@ public class KajaClientGUI extends JFrame implements Runnable, ActionListener {
 			} catch (IOException e1) {
 //				e1.printStackTrace();
 			}
-			textField.setText("");	// ¼­¹ö·Î chatÀ» º¸³»°í ³­ µÚ Ä­À» Å¬¸®¾î
+			textField.setText("");	// ì„œë²„ë¡œ chatì„ ë³´ë‚´ê³  ë‚œ ë’¤ ì¹¸ì„ í´ë¦¬ì–´
 		}
 	}// actionPerformed-end
 
 
-	// chatÀÌ ¿Ã ¶§¸¶´Ù beepÀ½À» ¿ï¸®°Ô ÇÏ·Á°í ¼³Á¤ÇÏ´Â ºÎºĞ
+	// chatì´ ì˜¬ ë•Œë§ˆë‹¤ beepìŒì„ ìš¸ë¦¬ê²Œ í•˜ë ¤ê³  ì„¤ì •í•˜ëŠ” ë¶€ë¶„
 	Toolkit tk =Toolkit.getDefaultToolkit();
 
 
 	@Override
-	public void run() {	// forÀ» ¹Ş´Â thread
+	public void run() {	// forì„ ë°›ëŠ” thread
 		try {
 			while(true) {
 				list.setListData(userList);
 				
 				String strServer;
 				strServer = inputStream.readUTF();
-				if(strServer == null) {	// chatÀÌ ¾Æ¹«°Íµµ ¾È¿ÔÀ» ¶§
-					textArea.append("\n"+"Á¾·á");
+				if(strServer == null) {	// chatì´ ì•„ë¬´ê²ƒë„ ì•ˆì™”ì„ ë•Œ
+					textArea.append("\n"+"ì¢…ë£Œ");
 					return;
 				} else if(strServer != null) {
 					
 				}
-				textArea.append("\n"+strServer);	// ¼­¹ö¿¡¼­ ¿Â chatÀ» TextArea¿¡ Ãß°¡
+				textArea.append("\n"+strServer);	// ì„œë²„ì—ì„œ ì˜¨ chatì„ TextAreaì— ì¶”ê°€
 
-				//-----------½ºÅ©·Ñ¹Ù°¡ »ı±ä ÈÄ ¸Ç ¾Æ·¡ÀÇ ³»¿ëÀÌ Àß º¸ÀÌ°Ô ÇÏ´Â ºÎºĞ-----------
+				//-----------ìŠ¤í¬ë¡¤ë°”ê°€ ìƒê¸´ í›„ ë§¨ ì•„ë˜ì˜ ë‚´ìš©ì´ ì˜ ë³´ì´ê²Œ í•˜ëŠ” ë¶€ë¶„-----------
 				int bottom = textArea.getText().length();
-				textArea.setCaretPosition(bottom); // Ä¿¼­¸¦ ¸Ç µÚ·Î ¼³Á¤, ¸Ç ¾ÕÀ¸·Î ¼³Á¤ÇÒ ¶© (0)À» ÁÜ
-				tk.beep();// chatÀÌ ¿Ã ¶§¸¶´Ù beepÀ½ ¿ï¸®°Ô ÇÏ´Â ºÎºĞ
+				textArea.setCaretPosition(bottom); // ì»¤ì„œë¥¼ ë§¨ ë’¤ë¡œ ì„¤ì •, ë§¨ ì•ìœ¼ë¡œ ì„¤ì •í•  ë• (0)ì„ ì¤Œ
+				tk.beep();// chatì´ ì˜¬ ë•Œë§ˆë‹¤ beepìŒ ìš¸ë¦¬ê²Œ í•˜ëŠ” ë¶€ë¶„
 				//----------------------------------------------------------------
 			}
 		} catch (Exception e) {

@@ -17,31 +17,31 @@ class ServerClass {
 	DataOutputStream outputStream;
 	Vector userList;
 
-	public ServerClass(int portNo) throws IOException {	// »ı¼ºÀÚ
-		Socket s = null;	// Á¢¼Ó °´Ã¼
+	public ServerClass(int portNo) throws IOException {	// ìƒì„±ì
+		Socket s = null;	// ì ‘ì† ê°ì²´
 
 		// listen
 		ServerSocket ss = new ServerSocket(portNo);
-		System.out.println("¼­¹ö °¡µ¿...");
+		System.out.println("ì„œë²„ ê°€ë™...");
 
 		while(true) {
 			s = ss.accept();
-			System.out.println("Á¢¼ÓÁÖ¼Ò : "+s.getInetAddress()+", Á¢¼ÓÆ÷Æ® : "+s.getPort());
-			// user Á¢¼Ó ¸¶´Ù ½º·¹µå °´Ã¼ »ı¼ºÇØ¼­ ½º·¹µå À§¿¡ ¿Ã·Á ³õÀ½
-			ThreadServerClass tServer = new ThreadServerClass(s);	// ½º·¹µå °´Ã¼ »ı¼º
-			tServer.start();	// ½º·¹µå ½ÃÀÛ
+			System.out.println("ì ‘ì†ì£¼ì†Œ : "+s.getInetAddress()+", ì ‘ì†í¬íŠ¸ : "+s.getPort());
+			// user ì ‘ì† ë§ˆë‹¤ ìŠ¤ë ˆë“œ ê°ì²´ ìƒì„±í•´ì„œ ìŠ¤ë ˆë“œ ìœ„ì— ì˜¬ë ¤ ë†“ìŒ
+			ThreadServerClass tServer = new ThreadServerClass(s);	// ìŠ¤ë ˆë“œ ê°ì²´ ìƒì„±
+			tServer.start();	// ìŠ¤ë ˆë“œ ì‹œì‘
 
-			threadList.add(tServer);	// ½º·¹µå °´Ã¼ ¸®½ºÆ®¿¡ ³Ö±â : Á¢¼ÓÀÚ ¼ö Ãß°¡
-			System.out.println("Á¢¼ÓÀÚ ¼ö : "+threadList.size());
+			threadList.add(tServer);	// ìŠ¤ë ˆë“œ ê°ì²´ ë¦¬ìŠ¤íŠ¸ì— ë„£ê¸° : ì ‘ì†ì ìˆ˜ ì¶”ê°€
+			System.out.println("ì ‘ì†ì ìˆ˜ : "+threadList.size());
 		}
 
 	}
 
 
-	// Á¡¼Ó ÁßÀÎ ½º·¹µå¿¡°Ô chat ³»¿ëÀ» º¸³¿
+	// ì ì† ì¤‘ì¸ ìŠ¤ë ˆë“œì—ê²Œ chat ë‚´ìš©ì„ ë³´ëƒ„
 	public void sendChat(String chat) throws IOException {
 		for(int i=0; i<threadList.size(); i++)
-			// chat ³»¿ëÀÌ outputStreamÀ» ÅëÇØ¼­ ¸®½ºÆ®¿¡ µé¾î°£´Ù.
+			// chat ë‚´ìš©ì´ outputStreamì„ í†µí•´ì„œ ë¦¬ìŠ¤íŠ¸ì— ë“¤ì–´ê°„ë‹¤.
 			threadList.get(i).outputStream.writeUTF(chat);
 	}
 
@@ -52,41 +52,41 @@ class ServerClass {
 		DataInputStream inputStream;
 		DataOutputStream outputStream;
 
-		public ThreadServerClass(Socket s) throws IOException {	// »ı¼ºÀÚ
+		public ThreadServerClass(Socket s) throws IOException {	// ìƒì„±ì
 			socket1 = s;
 			inputStream = new DataInputStream(s.getInputStream());
 			outputStream = new DataOutputStream(s.getOutputStream());
 		}
 
-		public void run() {	// ÇÑ»ç¶÷ ¼­¹ö·Î Á¢¼ÓÇÑ °æ¿ì
+		public void run() {	// í•œì‚¬ëŒ ì„œë²„ë¡œ ì ‘ì†í•œ ê²½ìš°
 			String nickname = "";
 			try {
 				if(inputStream != null) {
-					nickname = inputStream.readUTF();	// Stream¿¡ µé¾î¿Â °ª = ´Ğ³×ÀÓ
-					sendChat(nickname+"´ÔÀÌ ÀÔÀåÇÏ¼Ì½À´Ï´Ù.");	// ´Ğ³×ÀÓÀ» Ã¤ÆÃ °ü·Ã ¸ğµç »ç¶÷¿¡°Ô Àü¼Û
+					nickname = inputStream.readUTF();	// Streamì— ë“¤ì–´ì˜¨ ê°’ = ë‹‰ë„¤ì„
+					sendChat(nickname+"ë‹˜ì´ ì…ì¥í•˜ì…¨ìŠµë‹ˆë‹¤.");	// ë‹‰ë„¤ì„ì„ ì±„íŒ… ê´€ë ¨ ëª¨ë“  ì‚¬ëŒì—ê²Œ ì „ì†¡
 				}
 
-				// Á¤»ó Ã¤ÆÃÀÏ °æ¿ì¿£ while¹®ÀÌ °è¼Ó ¹İº¹µÈ´Ù.
+				// ì •ìƒ ì±„íŒ…ì¼ ê²½ìš°ì—” whileë¬¸ì´ ê³„ì† ë°˜ë³µëœë‹¤.
 				while(inputStream != null) {
-					sendChat(inputStream.readUTF());	// Ã¤ÆÃ ³»¿ëÀ» ¸ğµç »ç¶÷¿¡°Ô Àü¼Û
+					sendChat(inputStream.readUTF());	// ì±„íŒ… ë‚´ìš©ì„ ëª¨ë“  ì‚¬ëŒì—ê²Œ ì „ì†¡
 				}
 
 			} catch (IOException e) {
 				//				e.printStackTrace();
-			} finally {	// ¿¡·¯°¡ ³ªµç ¾È³ªµç ½ÇÇàµÇ´Â ±¸¹®
-				// ³ª°£ ½º·¹µåÀÇ ÀÎµ¦½º Ã£±â
+			} finally {	// ì—ëŸ¬ê°€ ë‚˜ë“  ì•ˆë‚˜ë“  ì‹¤í–‰ë˜ëŠ” êµ¬ë¬¸
+				// ë‚˜ê°„ ìŠ¤ë ˆë“œì˜ ì¸ë±ìŠ¤ ì°¾ê¸°
 				for(int i=0; i<threadList.size(); i++) {
-					// ³ª°£ ½º·¹µåÀÇ ¼ÒÄÏÀÌ ´©±¸ÀÎÁö È®ÀÎ
+					// ë‚˜ê°„ ìŠ¤ë ˆë“œì˜ ì†Œì¼“ì´ ëˆ„êµ¬ì¸ì§€ í™•ì¸
 					if(socket1.equals(threadList.get(i).socket1)) {
 						threadList.remove(i);
 						try {
-							sendChat(nickname+"´ÔÀÌ ÅğÀåÇÏ¼Ì½À´Ï´Ù.");
+							sendChat(nickname+"ë‹˜ì´ í‡´ì¥í•˜ì…¨ìŠµë‹ˆë‹¤.");
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 					}
 				}
-				System.out.println("Á¢¼ÓÀÚ ¼ö : "+threadList.size()+"¸í");
+				System.out.println("ì ‘ì†ì ìˆ˜ : "+threadList.size()+"ëª…");
 			}//finally-end
 		}//run-end
 	}//ThreadServerClass-end
@@ -99,7 +99,7 @@ public class TcpServer {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 
 		if(args.length != 1) {
-			System.out.println("»ç¿ë¹ı : ¼­¹ö ½ÇÇàÀº \'java ÆĞÅ°Áö¸í.ÆÄÀÏ¸í Æ÷Æ®¹øÈ£\' Çü½ÄÀ¸·Î ÀÔ·Â");
+			System.out.println("ì‚¬ìš©ë²• : ì„œë²„ ì‹¤í–‰ì€ \'java íŒ¨í‚¤ì§€ëª….íŒŒì¼ëª… í¬íŠ¸ë²ˆí˜¸\' í˜•ì‹ìœ¼ë¡œ ì…ë ¥");
 		}
 
 		new ServerClass(Integer.parseInt(args[0]));

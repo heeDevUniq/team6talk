@@ -19,6 +19,6 @@ public class TcpClient {
 		}
 		new LoginClient().setVisible(true);
 
-	}
+	} 
 
 }
